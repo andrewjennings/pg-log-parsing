@@ -1,6 +1,8 @@
 import argparse
+import locale
 import re
 
+locale.setlocale(locale.LC_ALL, 'en_US')
 parser = argparse.ArgumentParser(description='Read logs and total some number')
 
 # Process our arguments
@@ -28,6 +30,6 @@ for line in log_file:
         log_sum += int(target)
 
 # Return our total
-print "Total value of log is %d" % log_sum
+print "Total value of log is %s" % locale.format("%d", log_sum, grouping=True)
 
 log_file.close()
