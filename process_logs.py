@@ -15,6 +15,7 @@ log_file = open(args.filename, 'r')
 
 # Read each line of the file
 p = re.compile(args.regex)
+log_sum = 0
 for line in log_file:
     print line
     # See whether it matches the regex
@@ -23,8 +24,10 @@ for line in log_file:
     if matches:
         target = matches.group(args.index)
         print "Match is %s" % target
+        # Add the number to our total
+        log_sum += int(target)
 
-# Add the number to our total
 # Return our total
+print "Total value of log is %d" % log_sum
 
 log_file.close()
