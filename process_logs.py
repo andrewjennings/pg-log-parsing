@@ -5,6 +5,8 @@ parser = argparse.ArgumentParser(description='Read logs and total some number')
 
 # Process our arguments
 parser.add_argument("regex")
+parser.add_argument("index", help="Index of the regex group you want to count",
+        type=int)
 parser.add_argument("filename")
 args = parser.parse_args()
 
@@ -16,11 +18,12 @@ p = re.compile(args.regex)
 for line in log_file:
     print line
     # See whether it matches the regex
-    matches = p.findall(line)
-    for index, match in enumerate(matches):
-        print "Match number %d is %s" % (index, match)
+    matches = p.search(line)
+    # Get the number from the line if it does
+    if matches:
+        target = matches.group(args.index)
+        print "Match is %s" % target
 
-# Get the number from the line if it does
 # Add the number to our total
 # Return our total
 
